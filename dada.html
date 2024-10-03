@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificação de Alunos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            margin: 10px;
+            padding: 5px;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        .box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 30%;
+            min-height: 150px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Classificação de Alunos</h1>
+    <input type="text" id="nome" placeholder="Nome do Aluno" required>
+    <input type="number" id="nota" placeholder="Nota do Aluno" min="0" max="10" step="0.1" required>
+    <button onclick="adicionarAluno()">Adicionar Aluno</button>
+
+    <div class="container">
+        <div class="box" id="aprovados">
+            <h2>Aprovados</h2>
+        </div>
+        <div class="box" id="recuperacao">
+            <h2>Recuperação</h2>
+        </div>
+        <div class="box" id="reprovados">
+            <h2>Reprovados</h2>
+        </div>
+    </div>
+
+    <script>
+        function adicionarAluno() {
+            const nome = document.getElementById('nome').value;
+            const nota = parseFloat(document.getElementById('nota').value);
+
+            if (nome && !isNaN(nota)) {
+                let categoria;
+                let boxId;
+
+                if (nota >= 7) {
+                    categoria = 'Aprovado';
+                    boxId = 'aprovados';
+                } else if (nota >= 5) {
+                    categoria = 'Recuperação';
+                    boxId = 'recuperacao';
+                } else {
+                    categoria = 'Reprovado';
+                    boxId = 'reprovados';
+                }
+
+                const alunoDiv = document.createElement('div');
+                alunoDiv.textContent = `${nome} - Nota: ${nota}`;
+                document.getElementById(boxId).appendChild(alunoDiv);
+
+                // Limpa os campos de entrada
+                document.getElementById('nome').value = '';
+                document.getElementById('nota').value = '';
+            } else {
+                alert('Por favor, insira um nome e uma nota válidos.');
+            }
+        }
+    </script>
+</body>
+</html>
+---------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício de Manipulação de Texto e Estilo</title>
+</head>
+<body>
+    <h1>Manipulação de Texto e Estilo</h1>
+   
+    <p id="meuTexto">Texto Original</p>
+   
+    <button onclick="mudarTexto()">Mudar Texto</button>
+    <button onclick="mudarCor()">Mudar Cor</button>
+    <button onclick="limparTexto()">Limpar Texto</button>
+   
+    <script>
+        function mudarTexto() {
+            // Altera o texto do parágrafo
+            document.getElementById("meuTexto").innerText = "Texto Alterado!";
+        }
+
+        function mudarCor() {
+            // Altera a cor do texto do parágrafo
+            document.getElementById("meuTexto").style.color = "red";
+        }
+
+        function limparTexto() {
+            // Limpa o conteúdo do parágrafo
+            document.getElementById("meuTexto").innerText = "";
+        }
+    </script>
+</body>
+</html>
+------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação de Palíndromo</title>
+</head>
+<body>
+    <h1>Verificador de Palíndromo</h1>
+    <input type="text" id="entrada" placeholder="Digite uma palavra">
+    <button onclick="verificarPalindromo()">Verificar</button>
+    <p id="resultado"></p>
+
+    <script>
+        function ehPalindromo(palavra) {
+            const palavraLimpa = palavra.replace(/\s+/g, '').toLowerCase();
+            const palavraInvertida = palavraLimpa.split('').reverse().join('');
+            return palavraLimpa === palavraInvertida;
+        }
+
+        function verificarPalindromo() {
+            const entrada = document.getElementById("entrada").value;
+            const resultado = ehPalindromo(entrada);
+            document.getElementById("resultado").innerText = resultado ? "É um palíndromo!" : "Não é um palíndromo.";
+        }
+    </script>
+</body>
+</html>
+----------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificação de Preços</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Classificação de Lista de Preços</h1>
+    <label for="precos">Digite os preços separados por vírgula:</label><br>
+    <input type="text" id="precos" placeholder="Ex: 1, 2, 3, 4, 5"><br>
+    <button onclick="classificarLista()">Classificar</button>
+    
+    <div id="resultado"></div>
+
+    <script>
+        function classificarLista() {
+            const input = document.getElementById('precos').value;
+            const precos = input.split(',').map(Number).filter(n => !isNaN(n)); // Converte para números
+
+            let resultado;
+            if (precos.length <= 1) {
+                resultado = 3; // Retorna 3 se houver apenas um elemento
+            } else {
+                const listaCrescente = [...precos].sort((a, b) => a - b);
+                const listaDecrescente = [...precos].sort((a, b) => b - a);
+
+                if (JSON.stringify(precos) === JSON.stringify(listaCrescente)) {
+                    resultado = 1; // Ordem crescente
+                } else if (JSON.stringify(precos) === JSON.stringify(listaDecrescente)) {
+                    resultado = 2; // Ordem decrescente
+                } else {
+                    resultado = 3; // Ordem aleatória
+                }
+            }
+
+            document.getElementById('resultado').innerText = `Resultado: ${resultado}`;
+        }
+    </script>
+</body>
+</html>
+----------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FizzBuzz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px;
+            font-size: 18px;
+        }
+        .fizz {
+            color: green;
+            font-weight: bold;
+        }
+        .buzz {
+            color: blue;
+            font-weight: bold;
+        }
+        .fizzbuzz {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>FizzBuzz</h1>
+    <button onclick="fizzBuzz()">Executar FizzBuzz</button>
+    
+    <ul id="resultado"></ul>
+
+    <script>
+        function fizzBuzz() {
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = ''; // Limpa resultados anteriores
+
+            for (let i = 1; i <= 100; i++) {
+                let item;
+                let className = ''; // Classe para formatação
+
+                if (i % 3 === 0 && i % 5 === 0) {
+                    item = "FizzBuzz";
+                    className = 'fizzbuzz'; // Classe para FizzBuzz
+                } else if (i % 3 === 0) {
+                    item = "Fizz";
+                    className = 'fizz'; // Classe para Fizz
+                } else if (i % 5 === 0) {
+                    item = "Buzz";
+                    className = 'buzz'; // Classe para Buzz
+                } else {
+                    item = i; // Não divisível por 3 nem por 5
+                }
+
+                const li = document.createElement('li'); // Cria um item de lista
+                li.textContent = item; // Adiciona o texto ao item
+                if (className) {
+                    li.classList.add(className); // Adiciona a classe ao item
+                }
+                resultado.appendChild(li); // Adiciona o item à lista
+            }
+        }
+    </script>
+</body>
+</html>
